@@ -7,7 +7,9 @@ app.use(express.json());
 app.use(cors());
 
 app.get('/', (req: Request, res: Response) => {
-  res.send('Hello developers, I am Ishtiak From Rangpur 👻!');
+  res.send(
+    'Hello developers, I am Ishtiak From Rangpur, I am developing PH-University 🦄!',
+  );
 });
 
 export default app;
