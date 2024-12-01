@@ -32,11 +32,11 @@ const getAllStudents = async (req: Request, res: Response) => {
 // get single student from db
 const getSingleStudent = async (req: Request, res: Response) => {
   try {
-    const studentId = req.params.studentId;
+    const { studentId } = req.params;
     const result = await studentServices.getASingleStudentFromDb(studentId);
     res.status(200).json({
       success: true,
-      message: 'Signle user getted',
+      message: 'Signle student is retrieved successfully',
       data: result,
     });
   } catch (err) {
