@@ -3,11 +3,11 @@ import mongoose from 'mongoose';
 import app from './app';
 import config from './app/config';
 
-const { port, databaseURI } = config;
+const { port, databaseURL } = config;
 
 async function connectServer() {
   try {
-    await mongoose.connect(databaseURI as string);
+    await mongoose.connect(databaseURL as string);
     app.listen(port, () => {
       console.log(`PH-University server running on port ${port}`);
     });
