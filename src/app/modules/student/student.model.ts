@@ -1,4 +1,4 @@
-import { Schema } from 'mongoose';
+import { Schema, model } from 'mongoose';
 import {
   Student,
   TGuardian,
@@ -101,3 +101,6 @@ const studentSchema = new Schema<Student>({
   profileImg: { type: String },
   isActive: ['active', 'blocked'],
 });
+
+// model for the student
+const Student = model<Student>('Student', studentSchema);
