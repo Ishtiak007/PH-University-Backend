@@ -1,20 +1,77 @@
 import { Schema } from 'mongoose';
-import { Student } from './student.interface';
+import {
+  Student,
+  TGuardian,
+  TLocalGuardian,
+  UserName,
+} from './student.interface';
 
+const userNameSchema = new Schema<UserName>({
+  firstName: {
+    type: String,
+    required: true,
+  },
+  middleName: {
+    type: String,
+  },
+  lastName: {
+    type: String,
+    required: true,
+  },
+});
+
+const guardianSchema = new Schema<TGuardian>({
+  fatherName: {
+    type: String,
+    required: true,
+  },
+  fatherOccupation: {
+    type: String,
+    required: true,
+  },
+  fatherContactNo: {
+    type: String,
+    required: true,
+  },
+  motherName: {
+    type: String,
+    required: true,
+  },
+  motherOccupation: {
+    type: String,
+    required: true,
+  },
+  motherContactNo: {
+    type: String,
+    required: true,
+  },
+});
+
+const localGuardianSchema = new Schema<TLocalGuardian>({
+  name: {
+    type: String,
+    required: true,
+  },
+  occupation: {
+    type: String,
+    required: true,
+  },
+  contactNo: {
+    type: String,
+    required: true,
+  },
+  address: {
+    type: String,
+    required: true,
+  },
+});
+
+// studentSchema model...............................
 const studentSchema = new Schema<Student>({
   id: String,
   name: {
-    firstName: {
-      type: String,
-      required: true,
-    },
-    middleName: {
-      type: String,
-    },
-    lastName: {
-      type: String,
-      required: true,
-    },
+    type: userNameSchema,
+    required: true,
   },
   gender: ['male', 'female'],
   dateOfBirth: String,
@@ -39,32 +96,8 @@ const studentSchema = new Schema<Student>({
     type: String,
     required: true,
   },
-  guardian: {
-    fatherName: {
-      type: String,
-      required: true,
-    },
-    fatherOccupation: {
-      type: String,
-      required: true,
-    },
-    fatherContactNo: {
-      type: String,
-      required: true,
-    },
-    motherName: {
-      type: String,
-      required: true,
-    },
-    motherOccupation: {
-      type: String,
-      required: true,
-    },
-    motherContactNo: {
-      type: String,
-      required: true,
-    },
-  },
+  guardian: guardianSchema,
+  localGuardian: localGuardianSchema,
   profileImg: { type: String },
   isActive: ['active', 'blocked'],
 });
