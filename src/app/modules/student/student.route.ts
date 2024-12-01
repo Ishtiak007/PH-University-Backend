@@ -8,4 +8,7 @@ router.post('/create-student', studentControllers.createStudent);
 // get all student from DB
 router.get('/', studentControllers.getAllStudents);
 
+// get a single student from DB
+router.get('/:studentId', studentControllers.getSingleStudent);
+
 export const StudentRoutes = router;
