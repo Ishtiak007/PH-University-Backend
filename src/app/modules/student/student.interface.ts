@@ -1,3 +1,9 @@
+export type UserName = {
+  firstName: string;
+  middleName: string;
+  lastName: string;
+};
+
 export type TGuardian = {
   fatherName: string;
   fatherOccupation: string;
@@ -7,15 +13,20 @@ export type TGuardian = {
   motherContactNo: string;
 };
 
+export type TLocalGuardian = {
+  name: string;
+  occupation: string;
+  contactNo: string;
+  address: string;
+};
+
+// Student's interface
 export type Student = {
   id: string;
-  name: {
-    firstName: string;
-    middleName: string;
-    lastName: string;
-  };
+  name: UserName;
   gender: 'male' | 'female';
-  dateOfBirth: string;
+  dateOfBirth?: string;
+  email: string;
   contactNumber: string;
   contactNo: string;
   emergencyContactNo: string;
@@ -23,4 +34,8 @@ export type Student = {
   presentAddress: string;
   permanentAddress: string;
   guardian: TGuardian;
+  localGuardian: TLocalGuardian;
+  profileImg?: string;
+  isActive: 'active' | 'blocked';
+  isDeleted: boolean;
 };
