@@ -3,9 +3,8 @@ import { studentServices } from './student.services';
 import Joi from 'joi';
 
 const createStudent = async (req: Request, res: Response) => {
-  const { student: studentData } = req.body;
   try {
-    //creating a schema validation using JOI
+    // creating a validation schema using JOI
     const userNameSchema = Joi.object({
       firstName: Joi.string()
         .trim()
@@ -131,6 +130,7 @@ const createStudent = async (req: Request, res: Response) => {
         }),
     });
 
+    const { student: studentData } = req.body;
     const result = await studentServices.createStudentIntoDB(studentData);
     res.status(200).json({
       success: true,
