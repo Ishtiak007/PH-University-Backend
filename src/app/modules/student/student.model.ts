@@ -68,20 +68,24 @@ const localGuardianSchema = new Schema<TLocalGuardian>({
 
 // studentSchema model...............................
 const studentSchema = new Schema<Student>({
-  id: String,
+  id: { type: String, required: true, unique: true },
   name: {
     type: userNameSchema,
     required: [true, 'This name field is required'],
   },
   gender: {
     type: String,
-    enum: ['male', 'female', 'other'],
-    required: [true, 'This gender field is required'],
+    enum: {
+      values: ['male', 'female', 'other'],
+      message: '{VALUE} is not valid.',
+    },
+    required: true,
   },
   dateOfBirth: String,
   email: {
     type: String,
     required: [true, 'This dateOfBirth field is required'],
+    unique: true,
   },
   contactNo: {
     type: String,
@@ -93,7 +97,9 @@ const studentSchema = new Schema<Student>({
   },
   bloodGroup: {
     type: String,
-    enum: ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'],
+    enum: {
+      values: ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'],
+    },
   },
   presentAddress: { type: String, required: true },
   permanentAddress: { type: String, required: true },
