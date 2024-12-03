@@ -5,6 +5,7 @@ import {
   TLocalGuardian,
   UserName,
 } from './student.interface';
+import validator from 'validator';
 
 const userNameSchema = new Schema<UserName>({
   firstName: {
@@ -29,8 +30,11 @@ const userNameSchema = new Schema<UserName>({
   },
   lastName: {
     type: String,
-    trim: true,
-    required: [true, 'This last name field is required'],
+    required: [true, 'Lase Name is required'],
+    validate: {
+      validator: (value: string) => validator.isAlpha(value),
+      message: '{VALUE} is not valid',
+    },
   },
 });
 
