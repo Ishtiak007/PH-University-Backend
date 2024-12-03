@@ -15,6 +15,13 @@ const userNameSchema = new Schema<UserName>({
       20,
       'Max allowed length is 20- first name cannot be more than 20 characters',
     ],
+    validate: {
+      validator: function (value: string) {
+        const firstNameStr = value.charAt(0).toUpperCase() + value.slice(1);
+        return firstNameStr === value;
+      },
+      message: '{VALUE} is not in capitilize format',
+    },
   },
   middleName: {
     type: String,
