@@ -10,6 +10,7 @@ const userNameSchema = new Schema<UserName>({
   firstName: {
     type: String,
     required: [true, 'This first name field is required'],
+    trim: true,
     maxlength: [
       20,
       'Max allowed length is 20- first name cannot be more than 20 characters',
@@ -17,9 +18,11 @@ const userNameSchema = new Schema<UserName>({
   },
   middleName: {
     type: String,
+    trim: true,
   },
   lastName: {
     type: String,
+    trim: true,
     required: [true, 'This last name field is required'],
   },
 });
@@ -27,26 +30,32 @@ const userNameSchema = new Schema<UserName>({
 const guardianSchema = new Schema<TGuardian>({
   fatherName: {
     type: String,
+    trim: true,
     required: [true, 'This FatharName field is required'],
   },
   fatherOccupation: {
     type: String,
+    trim: true,
     required: [true, 'This fatherOccupation field is required'],
   },
   fatherContactNo: {
     type: String,
+    trim: true,
     required: [true, 'This fatherContactNo field is required'],
   },
   motherName: {
     type: String,
+    trim: true,
     required: [true, 'This motherName field is required'],
   },
   motherOccupation: {
     type: String,
+    trim: true,
     required: [true, 'This motherOccupation field is required'],
   },
   motherContactNo: {
     type: String,
+    trim: true,
     required: [true, 'This motherContactNo field is required'],
   },
 });
@@ -54,18 +63,22 @@ const guardianSchema = new Schema<TGuardian>({
 const localGuardianSchema = new Schema<TLocalGuardian>({
   name: {
     type: String,
+    trim: true,
     required: [true, 'This localGuardianSchema field is required'],
   },
   occupation: {
     type: String,
+    trim: true,
     required: [true, 'This occupation field is required'],
   },
   contactNo: {
     type: String,
+    trim: true,
     required: [true, 'This contactNo field is required'],
   },
   address: {
     type: String,
+    trim: true,
     required: [true, 'This address field is required'],
   },
 });
