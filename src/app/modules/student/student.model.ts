@@ -114,6 +114,10 @@ const studentSchema = new Schema<Student>({
     type: String,
     required: [true, 'This dateOfBirth field is required'],
     unique: true,
+    validate: {
+      validator: (value: string) => validator.isEmail(value),
+      message: 'Your provided email is not valid',
+    },
   },
   contactNo: {
     type: String,
