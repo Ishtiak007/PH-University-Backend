@@ -157,6 +157,15 @@ studentSchema.statics.isUserExists = async function (id: string) {
   return existingUser;
 };
 
+// presave middleware / hook: will work on create() save()
+studentSchema.pre('save', function () {
+  console.log(this, 'pre hook : we will save the data');
+});
+// post save middleware / hook
+studentSchema.post('save', function () {
+  console.log(this, 'post hook : we will save the data');
+});
+
 // creating a custom instance method
 // studentSchema.methods.isUserExists = async function (id: string) {
 //   const existingUser = await Student.findOne({ id });
