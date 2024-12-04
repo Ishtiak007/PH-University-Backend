@@ -157,6 +157,10 @@ const studentSchema = new Schema<TStudent, StudentModel>({
     enum: ['active', 'blocked'],
     default: 'active',
   },
+  isDeleted: {
+    type: Boolean,
+    default: false,
+  },
 });
 //creating a custom static method
 studentSchema.statics.isUserExists = async function (id: string) {
