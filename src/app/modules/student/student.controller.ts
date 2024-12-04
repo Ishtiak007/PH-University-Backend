@@ -1,12 +1,14 @@
 import { Request, Response } from 'express';
 import { studentServices } from './student.services';
-import Joi from 'joi';
+import studentvalidationSchema from './student.validation';
 
 const createStudent = async (req: Request, res: Response) => {
   try {
     const { student: studentData } = req.body;
 
-    const { error, value } = studentSchema.validate(studentData);
+    const { error } = studentvalidationSchema.validate(studentData);
+
+    const result = await studentServices.createStudentIntoDB(studentData);
 
     if (error) {
       res.status(500).json({
@@ -16,7 +18,6 @@ const createStudent = async (req: Request, res: Response) => {
       });
     }
 
-    const result = await studentServices.createStudentIntoDB(studentData);
     res.status(200).json({
       success: true,
       message: 'Student created successfully',

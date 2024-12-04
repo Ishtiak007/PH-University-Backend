@@ -1,7 +1,7 @@
 import Joi from 'joi';
 
 // creating a validation schema using JOI
-const userNameSchema = Joi.object({
+const userNameValidationSchema = Joi.object({
   firstName: Joi.string()
     .trim()
     .max(20)
@@ -28,8 +28,8 @@ const userNameSchema = Joi.object({
     }, 'Last name alphabetic validation'),
 });
 
-// Guardian schema
-const guardianSchema = Joi.object({
+// guardianValidationSchema schema
+const guardianValidationSchema = Joi.object({
   fatherName: Joi.string().required(),
   fatherOccupation: Joi.string().required(),
   fatherContactNo: Joi.string().required(),
@@ -38,8 +38,8 @@ const guardianSchema = Joi.object({
   motherContactNo: Joi.string().required(),
 });
 
-// LocalGuardian schema
-const localGuardianSchema = Joi.object({
+// localGuardianValidationSchema schema
+const localGuardianValidationSchema = Joi.object({
   name: Joi.string().required(),
   occupation: Joi.string().required(),
   contactNo: Joi.string().required(),
@@ -49,7 +49,7 @@ const localGuardianSchema = Joi.object({
 // Student schema
 const studentvalidationSchema = Joi.object({
   id: Joi.string().required(),
-  name: userNameSchema.required(),
+  name: userNameValidationSchema.required(),
   gender: Joi.string()
     .valid('male', 'female', 'other')
     .required()
@@ -66,8 +66,8 @@ const studentvalidationSchema = Joi.object({
     .optional(),
   presentAddress: Joi.string().required(),
   permanentAddress: Joi.string().required(),
-  guardian: guardianSchema.required(),
-  localGuardian: localGuardianSchema.required(),
+  guardian: guardianValidationSchema.required(),
+  localGuardian: localGuardianValidationSchema.required(),
   profileImg: Joi.string().optional(),
   isActive: Joi.string().valid('active', 'blocked').default('active'),
 });
