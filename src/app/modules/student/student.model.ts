@@ -103,7 +103,6 @@ const studentSchema = new Schema<TStudent, StudentModel>({
   password: {
     type: String,
     required: [true, 'password is required'],
-    unique: true,
     maxlength: [20, 'Password can not be more than 20 characters'],
   },
   name: {
@@ -181,6 +180,11 @@ studentSchema.pre('save', async function (next) {
 studentSchema.post('save', function (doc, next) {
   doc.password = '';
   next();
+});
+
+// Query middleware
+studentSchema.pre('find', function (next) {
+  console.log(this);
 });
 
 // creating a custom instance method
