@@ -178,8 +178,9 @@ studentSchema.pre('save', async function (next) {
   next();
 });
 // post save middleware / hook
-studentSchema.post('save', function () {
-  console.log(this, 'post hook : we will save the data');
+studentSchema.post('save', function (doc, next) {
+  doc.password = '';
+  next();
 });
 
 // creating a custom instance method
