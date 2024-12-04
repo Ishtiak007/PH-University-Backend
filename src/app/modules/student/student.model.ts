@@ -7,6 +7,8 @@ import {
   TUserName,
 } from './student.interface';
 import validator from 'validator';
+import bcrypt from 'bcrypt';
+import config from '../../config';
 
 const userNameSchema = new Schema<TUserName>({
   firstName: {
@@ -164,8 +166,16 @@ studentSchema.statics.isUserExists = async function (id: string) {
 };
 
 // presave middleware / hook: will work on create() save()
-studentSchema.pre('save', function () {
-  console.log(this, 'pre hook : we will save the data');
+studentSchema.pre('save', async function (next) {
+  // console.log(this, 'pre hook : we will save the data');
+  // eslint-disable-next-line @typescript-eslint/no-this-alias
+  const user = this;
+  //hashing password and save into DB
+  user.password = await bcrypt.hash(
+    user.password,
+    Number(config.bcrypt_salt_rounds),
+  );
+  next();
 });
 // post save middleware / hook
 studentSchema.post('save', function () {
