@@ -1,9 +1,10 @@
 import { z } from 'zod';
 
+// UserName Validation Schema
 const userNameValidationSchema = z.object({
   firstName: z
     .string()
-    .max(20, 'First Name can not be more than 20 characters')
+    .max(20, 'First Name cannot be more than 20 characters')
     .refine(
       (value) => value.charAt(0).toUpperCase() + value.slice(1) === value,
       { message: 'First Name must be in capitalize format' },
@@ -14,34 +15,48 @@ const userNameValidationSchema = z.object({
   }),
 });
 
-// Guardian Schema
+// Guardian Validation Schema
 const guardianValidationSchema = z.object({
   fatherName: z.string(),
   fatherOccupation: z.string(),
-  fatherContactNo: z.string(),
+  fatherContactNo: z
+    .string()
+    .min(10, 'Father Contact No must be at least 10 digits')
+    .max(15, 'Father Contact No must be at most 15 digits'),
   motherName: z.string(),
   motherOccupation: z.string(),
-  motherContactNo: z.string(),
+  motherContactNo: z
+    .string()
+    .min(10, 'Mother Contact No must be at least 10 digits')
+    .max(15, 'Mother Contact No must be at most 15 digits'),
 });
 
-// LocalGuardian Schema
+// LocalGuardian Validation Schema
 const localGuardianValidationSchema = z.object({
   name: z.string(),
   occupation: z.string(),
-  contactNo: z.string(),
+  contactNo: z
+    .string()
+    .min(10, 'Contact No must be at least 10 digits')
+    .max(15, 'Contact No must be at most 15 digits'),
   address: z.string(),
 });
 
-// Student Schema
+// Student Validation Schema
 const studentValidationSchema = z.object({
   id: z.string(),
-  password: z.string().max(20),
   name: userNameValidationSchema,
   gender: z.enum(['male', 'female', 'other']),
   dateOfBirth: z.string().optional(),
   email: z.string().email('Invalid email format'),
-  contactNo: z.string(),
-  emergencyContactNumber: z.string(),
+  contactNo: z
+    .string()
+    .min(10, 'Contact No must be at least 10 digits')
+    .max(15, 'Contact No must be at most 15 digits'),
+  emergencyContactNumber: z
+    .string()
+    .min(10, 'Emergency Contact No must be at least 10 digits')
+    .max(15, 'Emergency Contact No must be at most 15 digits'),
   bloodGroup: z
     .enum(['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'])
     .optional(),

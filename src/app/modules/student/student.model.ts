@@ -123,7 +123,7 @@ const studentSchema = new Schema<Student>({
     type: String,
     required: [true, 'This contactNo field is required'],
   },
-  emergencyContactNo: {
+  emergencyContactNumber: {
     type: String,
     required: [true, 'This emergencyContactNo field is required'],
   },
