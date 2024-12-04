@@ -37,9 +37,7 @@ const studentValidationSchema = z.object({
   id: z.string(),
   password: z.string().max(20),
   name: userNameValidationSchema,
-  gender: z.enum(['male', 'female', 'other'], {
-    invalid_type_error: '{VALUE} is not valid',
-  }),
+  gender: z.enum(['male', 'female', 'other']),
   dateOfBirth: z.string().optional(),
   email: z.string().email('Invalid email format'),
   contactNo: z.string(),
@@ -48,7 +46,7 @@ const studentValidationSchema = z.object({
     .enum(['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'])
     .optional(),
   presentAddress: z.string(),
-  permanentAdress: z.string(),
+  permanentAddress: z.string(),
   guardian: guardianValidationSchema,
   localGuardian: localGuardianValidationSchema,
   profileImg: z.string().optional(),
