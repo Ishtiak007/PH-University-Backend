@@ -192,9 +192,16 @@ studentSchema.pre('find', function (next) {
   this.find({ isDeleted: { $ne: true } });
   next();
 });
+
 studentSchema.pre('findOne', function (next) {
   // console.log(this);
   this.find({ isDeleted: { $ne: true } });
+  next();
+});
+
+// [$match : {isDeleted:{$ne:{true}}}] ,[ { '$match': { id: '12345401' } } ]
+studentSchema.pre('aggregate', function (next) {
+  this.pipeline().unshift({ $match: { isDeleted: { $ne: true } } });
   next();
 });
 
