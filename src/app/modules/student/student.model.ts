@@ -188,7 +188,8 @@ studentSchema.post('save', function (doc, next) {
 
 // Query middleware
 studentSchema.pre('find', function (next) {
-  console.log(this);
+  // console.log(this);
+  next();
 });
 
 // creating a custom instance method
