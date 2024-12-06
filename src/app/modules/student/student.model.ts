@@ -98,70 +98,83 @@ const localGuardianSchema = new Schema<TLocalGuardian>({
 });
 
 // studentSchema model...............................
-const studentSchema = new Schema<TStudent, StudentModel>({
-  id: { type: String, required: [true, 'ID is required'], unique: true },
-  password: {
-    type: String,
-    required: [true, 'password is required'],
-    maxlength: [20, 'Password can not be more than 20 characters'],
-  },
-  name: {
-    type: userNameSchema,
-    required: [true, 'This name field is required'],
-  },
-  gender: {
-    type: String,
-    enum: {
-      values: ['male', 'female', 'other'],
-      message: '{VALUE} is not valid.',
+const studentSchema = new Schema<TStudent, StudentModel>(
+  {
+    id: { type: String, required: [true, 'ID is required'], unique: true },
+    password: {
+      type: String,
+      required: [true, 'password is required'],
+      maxlength: [20, 'Password can not be more than 20 characters'],
     },
-    required: true,
-  },
-  dateOfBirth: String,
-  email: {
-    type: String,
-    required: [true, 'This dateOfBirth field is required'],
-    unique: true,
-    validate: {
-      validator: (value: string) => validator.isEmail(value),
-      message: ' ({VALUE}) -Your provided email is not valid',
+    name: {
+      type: userNameSchema,
+      required: [true, 'This name field is required'],
+    },
+    gender: {
+      type: String,
+      enum: {
+        values: ['male', 'female', 'other'],
+        message: '{VALUE} is not valid.',
+      },
+      required: true,
+    },
+    dateOfBirth: String,
+    email: {
+      type: String,
+      required: [true, 'This dateOfBirth field is required'],
+      unique: true,
+      validate: {
+        validator: (value: string) => validator.isEmail(value),
+        message: ' ({VALUE}) -Your provided email is not valid',
+      },
+    },
+    contactNo: {
+      type: String,
+      required: [true, 'This contactNo field is required'],
+    },
+    emergencyContactNumber: {
+      type: String,
+      required: [true, 'This emergencyContactNo field is required'],
+    },
+    bloodGroup: {
+      type: String,
+      enum: {
+        values: ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'],
+      },
+    },
+    presentAddress: { type: String, required: true },
+    permanentAddress: { type: String, required: true },
+    guardian: {
+      type: guardianSchema,
+      required: [true, 'This guardian field is required'],
+    },
+    localGuardian: {
+      type: localGuardianSchema,
+      required: [true, 'This localGuardian field is required'],
+    },
+    profileImg: { type: String },
+    isActive: {
+      type: String,
+      enum: ['active', 'blocked'],
+      default: 'active',
+    },
+    isDeleted: {
+      type: Boolean,
+      default: false,
     },
   },
-  contactNo: {
-    type: String,
-    required: [true, 'This contactNo field is required'],
-  },
-  emergencyContactNumber: {
-    type: String,
-    required: [true, 'This emergencyContactNo field is required'],
-  },
-  bloodGroup: {
-    type: String,
-    enum: {
-      values: ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'],
+  {
+    toJSON: {
+      virtuals: true,
     },
   },
-  presentAddress: { type: String, required: true },
-  permanentAddress: { type: String, required: true },
-  guardian: {
-    type: guardianSchema,
-    required: [true, 'This guardian field is required'],
-  },
-  localGuardian: {
-    type: localGuardianSchema,
-    required: [true, 'This localGuardian field is required'],
-  },
-  profileImg: { type: String },
-  isActive: {
-    type: String,
-    enum: ['active', 'blocked'],
-    default: 'active',
-  },
-  isDeleted: {
-    type: Boolean,
-    default: false,
-  },
+);
+
+// virtual
+studentSchema.virtual('fullName').get(function () {
+  return `${this.name.firstName} ${this.name.middleName} ${this.name.lastName}`;
 });
+
 //creating a custom static method
 studentSchema.statics.isUserExists = async function (id: string) {
   const existingUser = await Student.findOne({ id });
@@ -188,7 +201,6 @@ studentSchema.post('save', function (doc, next) {
 
 // Query middleware
 studentSchema.pre('find', function (next) {
-  // console.log(this);
   this.find({ isDeleted: { $ne: true } });
   next();
 });
