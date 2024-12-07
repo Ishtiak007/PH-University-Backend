@@ -1,11 +1,16 @@
+import { UserServices } from './user.service';
+
 const createStudent = async (req: Request, res: Response) => {
   try {
-    const { student: studentData } = req.body;
+    const { password, student: studentData } = req.body;
 
     // creating a schema validation using ZOD
-    const zodparseData = studentValidationSchema.parse(studentData);
+    // const zodparseData = studentValidationSchema.parse(studentData);
 
-    const result = await studentServices.createStudentIntoDB(zodparseData);
+    const result = await UserServices.createStudentIntoDB(
+      password,
+      studentData,
+    );
 
     res.status(200).json({
       success: true,
