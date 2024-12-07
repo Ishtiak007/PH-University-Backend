@@ -3,12 +3,6 @@ import { studentServices } from './student.services';
 import sendResponse from '../../utils/sendResponse';
 import httpStatus from 'http-status';
 
-const catchAsync = (fn: RequestHandler) => {
-  return (req: Request, res: Response, next: NextFunction) => {
-    Promise.resolve(fn(req, res, next)).catch((err) => next(err));
-  };
-};
-
 // get all students from db
 const getAllStudents: RequestHandler = catchAsync(async (req, res, next) => {
   const result = await studentServices.getAllStudentFromDb();
