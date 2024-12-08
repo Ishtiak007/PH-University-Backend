@@ -45,28 +45,29 @@ const localGuardianValidationSchema = z.object({
 // Student Validation Schema
 export const studentValidationSchema = z.object({
   body: z.object({
-    id: z.string(),
     password: z.string().max(20),
-    name: userNameValidationSchema,
-    gender: z.enum(['male', 'female', 'other']),
-    dateOfBirth: z.string().optional(),
-    email: z.string().email('Invalid email format'),
-    contactNo: z
-      .string()
-      .min(10, 'Contact No must be at least 10 digits')
-      .max(15, 'Contact No must be at most 15 digits'),
-    emergencyContactNumber: z
-      .string()
-      .min(10, 'Emergency Contact No must be at least 10 digits')
-      .max(15, 'Emergency Contact No must be at most 15 digits'),
-    bloodGroup: z
-      .enum(['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'])
-      .optional(),
-    presentAddress: z.string(),
-    permanentAddress: z.string(),
-    guardian: guardianValidationSchema,
-    localGuardian: localGuardianValidationSchema,
-    profileImg: z.string().optional(),
+    student: z.object({
+      name: userNameValidationSchema,
+      gender: z.enum(['male', 'female', 'other']),
+      dateOfBirth: z.string().optional(),
+      email: z.string().email('Invalid email format'),
+      contactNo: z
+        .string()
+        .min(10, 'Contact No must be at least 10 digits')
+        .max(15, 'Contact No must be at most 15 digits'),
+      emergencyContactNumber: z
+        .string()
+        .min(10, 'Emergency Contact No must be at least 10 digits')
+        .max(15, 'Emergency Contact No must be at most 15 digits'),
+      bloodGroup: z
+        .enum(['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'])
+        .optional(),
+      presentAddress: z.string(),
+      permanentAddress: z.string(),
+      guardian: guardianValidationSchema,
+      localGuardian: localGuardianValidationSchema,
+      profileImg: z.string().optional(),
+    }),
   }),
 });
 
