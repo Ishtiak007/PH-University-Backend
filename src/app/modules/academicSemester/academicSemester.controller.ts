@@ -1,6 +1,7 @@
 import catchAsync from '../../utils/catchAsync';
 import sendResponse from '../../utils/sendResponse';
 import { AcademicSemesterServices } from './academicSemester.service';
+import httpStatus from 'http-status';
 
 const createAcademicSemester = catchAsync(async (req, res) => {
   //const { password, student: studentData } = req.body;
