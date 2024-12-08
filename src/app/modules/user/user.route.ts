@@ -7,12 +7,14 @@ const router = express.Router();
 
 const validateRequest = (schema: AnyZodObject) => {
   return async (req: Request, res: Response, next: NextFunction) => {
-    // validation
-    const zodParseData = await schema.parseAsync({
-      body: req.body,
-    });
-
-    next();
+    try {
+      await schema.parseAsync({
+        body: req.body,
+      });
+      next();
+    } catch (err) {
+      next(err);
+    }
   };
 };
 
