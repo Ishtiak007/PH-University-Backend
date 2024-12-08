@@ -1,17 +1,9 @@
+import { academicSemesterNameCodeMapper } from './academicSemester.constant';
 import { TAcademicSemester } from './academicSemester.interface';
 import { AcademicSemester } from './academicSemester.model';
 
 const createAcademicSemesterIntoDB = async (payload: TAcademicSemester) => {
   // semester name ------> semester code
-  type TAcademicSemesterNameCodeMapper = {
-    [key: string]: string;
-  };
-  const academicSemesterNameCodeMapper: TAcademicSemesterNameCodeMapper = {
-    Autumn: '01',
-    Summar: '02',
-    Fall: '03',
-  };
-
   if (academicSemesterNameCodeMapper[payload.name] !== payload.code) {
     throw new Error('Invalid semester code');
   }
@@ -22,4 +14,8 @@ const createAcademicSemesterIntoDB = async (payload: TAcademicSemester) => {
 
 export const AcademicSemesterServices = {
   createAcademicSemesterIntoDB,
+};
+
+export type TAcademicSemesterNameCodeMapper = {
+  [key: string]: string;
 };
