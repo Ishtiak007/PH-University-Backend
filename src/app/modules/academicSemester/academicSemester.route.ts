@@ -24,4 +24,4 @@ router.post(
   AcademicSemesterControllers.createAcademicSemester,
 );
 
-export const AcademicSemesterRoute = router;
+export const AcademicSemesterRoutes = router;
