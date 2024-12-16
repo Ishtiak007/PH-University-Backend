@@ -19,7 +19,7 @@ const getAllStudentFromDb = async () => {
 // get student from db
 const getASingleStudentFromDb = async (id: string) => {
   // const result = await Student.findOne({ id });
-  const result = await Student.findById(id)
+  const result = await Student.findOne({ id })
     .populate('admissionSemester')
     .populate({
       path: 'academicDepartment',
@@ -27,6 +27,12 @@ const getASingleStudentFromDb = async (id: string) => {
         path: 'academicFaculty',
       },
     });
+  return result;
+};
+
+// update student from db
+const updateStudentFromDb = async (id: string) => {
+  const result = await Student.findOne({ id });
   return result;
 };
 
@@ -62,11 +68,14 @@ const deleteStudentFromDb = async (id: string) => {
   } catch (err) {
     await session.abortTransaction();
     await session.endSession();
+    // eslint-disable-next-line no-console
+    console.log(err);
   }
 };
 
 export const studentServices = {
   getAllStudentFromDb,
   getASingleStudentFromDb,
+  updateStudentFromDb,
   deleteStudentFromDb,
 };
