@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import { Student } from './student.model';
 import AppError from '../../errors/AppError';
 import { User } from '../user/user.model';
+import { TStudent } from './student.interface';
 
 // get student from db
 const getAllStudentFromDb = async () => {
@@ -31,8 +32,27 @@ const getASingleStudentFromDb = async (id: string) => {
 };
 
 // update student from db
-const updateStudentFromDb = async (id: string) => {
-  const result = await Student.findOne({ id });
+const updateStudentFromDb = async (id: string, payload: Partial<TStudent>) => {
+  const { name, guardian, localGuardian, ...remainingStudentData } = payload;
+
+  const modifiedUpdatedData: Record<string, unknown> = {
+    ...remainingStudentData,
+  };
+
+  /*
+    guardian:{
+    fatherOccupation:"Teacher"
+    }
+
+    guardian.fatherOccupation = Teacher
+  */
+  if (name && Object.keys(name).length) {
+    for (const [key, value] of Object.entries(name)) {
+      modifiedUpdatedData[`$name${key}`] = value;
+    }
+  }
+
+  const result = await Student.findOneAndUpdate({ id }, payload);
   return result;
 };
 
@@ -70,6 +90,7 @@ const deleteStudentFromDb = async (id: string) => {
     await session.endSession();
     // eslint-disable-next-line no-console
     console.log(err);
+    throw new Error('Failed delete student');
   }
 };
 

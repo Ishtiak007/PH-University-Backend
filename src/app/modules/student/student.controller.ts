@@ -31,7 +31,8 @@ const getSingleStudent = catchAsync(async (req, res) => {
 // update a student from db
 const updateStudent: RequestHandler = catchAsync(async (req, res) => {
   const { studentId } = req.params;
-  const result = await studentServices.deleteStudentFromDb(studentId);
+  const { student } = req.body;
+  const result = await studentServices.updateStudentFromDb(studentId, student);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
