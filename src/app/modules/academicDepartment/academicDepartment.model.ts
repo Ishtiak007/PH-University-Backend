@@ -25,7 +25,10 @@ academicDepartmentSchema.pre('save', async function (next) {
   });
 
   if (isDepartmentExist) {
-    throw new Error('This department is already exist bro');
+    throw new AppError(
+      httpStatus.NOT_FOUND,
+      'This department is already exist bro',
+    );
   }
   next();
 });
@@ -36,7 +39,10 @@ academicDepartmentSchema.pre('findOneAndUpdate', async function (next) {
   const isDepartmentExist = await AcademicDepartment.findOne(query);
 
   if (!isDepartmentExist) {
-    throw new AppError(404, 'This department does not exist bro');
+    throw new AppError(
+      httpStatus.NOT_FOUND,
+      'This department does not exist bro',
+    );
   }
   next();
 });
