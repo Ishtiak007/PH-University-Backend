@@ -17,7 +17,7 @@ router.get('/:facultyId', AcademicFacultyControllers.getSingleAcademicFaculty);
 router.patch(
   '/:facultyId',
   validateRequest(
-    academicFacultyValidation.updateAcatdemicFucaltyValidationSchema,
+    academicFacultyValidation.updateAcatdemicFacaltyValidationSchema,
   ),
   AcademicFacultyControllers.updateAcademicFaculty,
 );

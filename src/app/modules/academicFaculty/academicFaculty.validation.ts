@@ -6,7 +6,7 @@ const createAcademicFacultyValidationSchema = z.object({
   }),
 });
 
-const updateAcatdemicFucaltyValidationSchema = z.object({
+const updateAcatdemicFacaltyValidationSchema = z.object({
   body: z.object({
     name: z.string({ invalid_type_error: 'Academic faculty must be a string' }),
   }),
@@ -14,5 +14,5 @@ const updateAcatdemicFucaltyValidationSchema = z.object({
 
 export const academicFacultyValidation = {
   createAcademicFacultyValidationSchema,
-  updateAcatdemicFucaltyValidationSchema,
+  updateAcatdemicFacaltyValidationSchema,
 };
