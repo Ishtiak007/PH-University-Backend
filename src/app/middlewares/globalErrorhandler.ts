@@ -2,16 +2,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ErrorRequestHandler } from 'express';
-import { ZodError } from 'zod';
+import { ZodError, ZodIssue } from 'zod';
 
 const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
   // setting default values
   let statusCode = err.statusCode || 500;
   let message = err.message || 'Something went worng';
-  type TErrorSource = {
-    path: string | number;
-    message: string;
-  }[];
+
   let errorSources: TErrorSource = [
     {
       path: '',
@@ -19,8 +16,23 @@ const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
     },
   ];
 
+  const handleZodError = (err: ZodError) => {
+    const errorSources: TErrorSource = err.issues.map((issue: ZodIssue) => {
+      return {
+        path: issue?.path[issue.path.length - 1],
+        message: issue.message,
+      };
+    });
+    const statusCode = 400;
+    return {
+      statusCode,
+      message: 'Zod validation Error',
+      errorSources,
+    };
+  };
+
   if (err instanceof ZodError) {
-    statusCode = 400;
+    const simplifiedError = handleZodError(err);
     message = 'Ami zod error';
   }
 
@@ -28,7 +40,6 @@ const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
     success: false,
     message,
     errorSources,
-    errorHere: err,
   });
 };
 
