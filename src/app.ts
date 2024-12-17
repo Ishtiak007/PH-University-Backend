@@ -11,11 +11,13 @@ app.use(cors());
 
 app.use('/api/v1', router);
 
-app.get('/', (req: Request, res: Response) => {
-  res.send(
-    'Hello developers, I am Ishtiak From Rangpur, I am developing PH-University 🦄!',
-  );
-});
+const test = async (req: Request, res: Response) => {
+  Promise.reject();
+  // const a = 10;
+  // res.send(a);
+};
+
+app.get('/', test);
 
 app.use(globalErrorHandler);
 
