@@ -3,6 +3,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ErrorRequestHandler } from 'express';
 import { ZodError, ZodIssue } from 'zod';
+import { TErrorSource } from '../interface/error';
 
 const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
   // setting default values
@@ -33,7 +34,9 @@ const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
 
   if (err instanceof ZodError) {
     const simplifiedError = handleZodError(err);
-    message = 'Ami zod error';
+    statusCode = simplifiedError?.statusCode;
+    message = simplifiedError?.message;
+    errorSources = simplifiedError?.errorSources;
   }
 
   return res.status(statusCode).json({
