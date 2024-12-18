@@ -15,7 +15,7 @@ class QueryBuilder<T> {
         $or: searchableFields.map(
           (field) =>
             ({
-              [field]: { $regex: searchterm, $options: 'i' },
+              [field]: { $regex: searchTerm, $options: 'i' },
             }) as FilterQuery<T>,
         ),
       });
@@ -57,3 +57,5 @@ class QueryBuilder<T> {
     return this;
   }
 }
+
+export default QueryBuilder;
