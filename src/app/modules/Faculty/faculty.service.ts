@@ -4,8 +4,9 @@ import mongoose from 'mongoose';
 import QueryBuilder from '../../builder/QueryBuilder';
 import AppError from '../../errors/AppError';
 import { User } from '../user/user.model';
-import { FacultySearchableFields } from './faculty.constant';
 import { TFaculty } from './faculty.interface';
+import { Faculty } from './faculty.model';
+import { FacultySearchableFields } from './faculty.constant';
 
 const getAllFacultiesFromDB = async (query: Record<string, unknown>) => {
   const facultyQuery = new QueryBuilder(
