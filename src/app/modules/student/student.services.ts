@@ -63,6 +63,7 @@ const getAllStudentFromDb = async (query: Record<string, unknown>) => {
 
   //field limiting
   let fields = '-__v';
+
   if (query.fields) {
     fields = (query.fields as string).split(',').join(' ');
     console.log({ fields });
