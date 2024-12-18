@@ -8,17 +8,17 @@ const router = express.Router();
 // router.post('/create-student', studentControllers.createStudent);
 
 // get a single student from DB
-router.get('/:studentId', studentControllers.getSingleStudent);
+router.get('/:id', studentControllers.getSingleStudent);
 
 // update a student from DB
 router.patch(
-  '/:studentId',
+  '/:id',
   validateRequest(updateStudentValidationSchema),
   studentControllers.updateStudent,
 );
 
 // delete a student from DB
-router.delete('/:studentId', studentControllers.deleteStudent);
+router.delete('/:id', studentControllers.deleteStudent);
 
 // get all student from DB
 router.get('/', studentControllers.getAllStudents);
