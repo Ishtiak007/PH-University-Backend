@@ -38,10 +38,7 @@ const getSingleCourse = catchAsync(async (req, res) => {
 
 const updateCourse = catchAsync(async (req, res) => {
   const { id } = req.params;
-  const result = await CourseServices.(
-    id,
-    req.body,
-  );
+  const result = await CourseServices.updateCourseIntoDB(id, req.body);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -68,5 +65,5 @@ export const CourseControllers = {
   getAllCourses,
   getSingleCourse,
   deleteCourse,
-  updateCourse
+  updateCourse,
 };
