@@ -13,10 +13,10 @@ router.post(
   SemesterRegistrationController.createSemesterRegistration,
 );
 
-// router.get(
-//   '/:id',
-//   SemesterRegistrationController.getSingleSemesterRegistration,
-// );
+router.get(
+  '/:id',
+  SemesterRegistrationController.getSingleSemesterRegistration,
+);
 
 router.patch(
   '/:id',
@@ -24,11 +24,6 @@ router.patch(
     SemesterRegistrationValidations.upadateSemesterRegistrationValidationSchema,
   ),
   SemesterRegistrationController.updateSemesterRegistration,
-);
-
-router.get(
-  '/:id',
-  SemesterRegistrationController.getSingleSemesterRegistration,
 );
 
 // router.delete(
