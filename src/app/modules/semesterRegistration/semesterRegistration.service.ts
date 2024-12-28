@@ -53,7 +53,7 @@ const getAllSemesterRegistrationsFromDB = async (
   return result;
 };
 
-const getSingleSemesterRegistrationsFromDB = async () => {};
+const getSingleSemesterRegistrationsFromDB = async (id: string) => {};
 
 const updateSemesterRegistrationIntoDB = async () => {};
 
