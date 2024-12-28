@@ -84,12 +84,21 @@ const updateSemesterRegistrationIntoDB = async (
   }
 
   // if the requested semester registration is ended , we will not update anything
-  const requestedSemesterStatus = isSemesterRegistrationExists?.status;
+  const currentSemesterStatus = isSemesterRegistrationExists?.status;
 
-  if (requestedSemesterStatus === 'ENDED') {
+  const requestedStatus = payload?.status;
+
+  if (currentSemesterStatus === 'ENDED') {
     throw new AppError(
       httpStatus.BAD_REQUEST,
-      `Broo this semester is already ${requestedSemesterStatus}`,
+      `Broo this semester is already ${currentSemesterStatus}`,
+    );
+  }
+  // UPCOMING --> ONGOING--> ENDED
+  if (currentSemesterStatus === 'UPCOMING' && requestedStatus === 'ENDED') {
+    throw new AppError(
+      httpStatus.BAD_REQUEST,
+      `You can not directly change status from ${currentSemesterStatus} to ${requestedStatus}`,
     );
   }
 };
