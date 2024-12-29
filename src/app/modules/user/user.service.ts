@@ -16,6 +16,7 @@ import {
   generateFacultyId,
   generateStudentId,
 } from './user.utils';
+import { TAdmin } from '../admin/admin.interface';
 
 const createStudentIntoDB = async (password: string, payload: TStudent) => {
   // create a user object
