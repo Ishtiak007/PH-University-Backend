@@ -3,6 +3,7 @@ import validateRequest from '../../middlewares/validateRequest';
 import { createFacultyValidationSchema } from '../Faculty/faculty.validation';
 import { createStudentValidationSchema } from './../student/student.validation';
 import { UserControllers } from './user.controller';
+import { createAdminValidationSchema } from '../admin/admin.validation';
 
 const router = express.Router();
 
