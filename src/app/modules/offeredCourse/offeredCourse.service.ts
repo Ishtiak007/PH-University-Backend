@@ -6,6 +6,7 @@ import { Faculty } from '../Faculty/faculty.model';
 import { SemesterRegistration } from '../semesterRegistration/semesterRegistration.model';
 import { TOfferedCourse } from './offeredCourse.interface';
 import { OfferedCourse } from './offeredCourse.model';
+import httpStatus from 'http-status';
 
 const createOfferedCourseIntoDB = async (payload: TOfferedCourse) => {
   const {
