@@ -104,7 +104,12 @@ const createOfferedCourseIntoDB = async (payload: TOfferedCourse) => {
     endTime,
   };
 
-  console.log(hasTimeConflict(assignedSchedules, newSchedule));
+  if (hasTimeConflict(assignedSchedules, newSchedule)) {
+    throw new AppError(
+      httpStatus.CONFLICT,
+      'This faculty is not available at that time ! Choose other time or day',
+    );
+  }
 
   // const result = await OfferedCourse.create({ ...payload, academicSemester });
   // return result;
