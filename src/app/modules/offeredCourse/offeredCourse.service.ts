@@ -66,7 +66,7 @@ const createOfferedCourseIntoDB = async (payload: TOfferedCourse) => {
   });
   if (!isDepartmentBelongToFaculty) {
     throw new AppError(
-      httpStatus.NOT_FOUND,
+      httpStatus.BAD_REQUEST,
       `This ${isAcademicDepartmentExists.name} department is not belong to this ${isAcademicDepartmentExists.name}`,
     );
   }
@@ -82,7 +82,7 @@ const createOfferedCourseIntoDB = async (payload: TOfferedCourse) => {
 
   if (isSameOfferedCourseExistsWithSameRegisterSemesterWithSameSection) {
     throw new AppError(
-      httpStatus.NOT_FOUND,
+      httpStatus.BAD_REQUEST,
       `Offered course with same section is already exist!`,
     );
   }
