@@ -2,6 +2,7 @@ import AppError from '../../errors/AppError';
 import { User } from '../user/user.model';
 import { TLoginUser } from './auth.interface';
 import httpStatus from 'http-status';
+import bcrypt from 'bcrypt';
 
 const loginUser = async (payload: TLoginUser) => {
   //checking if the user is exists
@@ -12,7 +13,6 @@ const loginUser = async (payload: TLoginUser) => {
   }
 
   // checking if the use is already deleted
-
   const isDeleted = isUserExists?.isDeleted;
 
   if (isDeleted) {
@@ -20,12 +20,21 @@ const loginUser = async (payload: TLoginUser) => {
   }
 
   // checking if the use is blocked
-
   const userStatus = isUserExists?.status;
 
   if (userStatus === 'blocked') {
     throw new AppError(httpStatus.FORBIDDEN, 'This user is blocked');
   }
+
+  // checking if the password is correct
+  const isPasswordMatched = await bcrypt.compare(
+    payload?.password,
+    isUserExists?.password,
+  );
+
+  console.log(isPasswordMatched);
+
+  //access granted : send accesstoken, refressToken
   return {};
 };
 
