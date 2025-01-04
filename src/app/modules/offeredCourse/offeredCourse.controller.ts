@@ -4,6 +4,7 @@ import sendResponse from '../../utils/sendResponse';
 import httpStatus from 'http-status';
 import { OfferedCourseServices } from './offeredCourse.service';
 
+// create offered course
 const createOfferedCourse = catchAsync(async (req: Request, res: Response) => {
   const result = await OfferedCourseServices.createOfferedCourseIntoDB(
     req.body,
@@ -16,17 +17,21 @@ const createOfferedCourse = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+// get all offered course
 const getAllOfferedCourses = catchAsync(async (req: Request, res: Response) => {
-  //   const result =
-  //   sendResponse(res, {
-  //     statusCode: httpStatus.OK,
-  //     success: true,
-  //     message: 'OfferedCourses retrieved successfully !',
-  //     data: result,
-  //   });
+  const offeredCourses =
+    await OfferedCourseServices.getAllOfferedCoursesFromDB();
+
+  return sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Offered courses retrieved successfully!',
+    data: offeredCourses,
+  });
 });
 
-const getSingleOfferedCourses = catchAsync(
+// get single offerde courses
+const getSingleOfferedCourse = catchAsync(
   async (req: Request, res: Response) => {
     const { id } = req.params;
     const offeredCourse =
@@ -41,7 +46,6 @@ const getSingleOfferedCourses = catchAsync(
       });
     }
 
-    // Send success response
     return sendResponse(res, {
       statusCode: httpStatus.OK,
       success: true,
@@ -51,6 +55,7 @@ const getSingleOfferedCourses = catchAsync(
   },
 );
 
+// update offeded course
 const updateOfferedCourse = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
 
@@ -66,6 +71,7 @@ const updateOfferedCourse = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+// delete offered course from db
 const deleteOfferedCourseFromDB = catchAsync(
   async (req: Request, res: Response) => {
     const { id } = req.params;
@@ -82,7 +88,7 @@ const deleteOfferedCourseFromDB = catchAsync(
 export const OfferedCourseControllers = {
   createOfferedCourse,
   getAllOfferedCourses,
-  getSingleOfferedCourses,
+  getSingleOfferedCourse,
   updateOfferedCourse,
   deleteOfferedCourseFromDB,
 };
