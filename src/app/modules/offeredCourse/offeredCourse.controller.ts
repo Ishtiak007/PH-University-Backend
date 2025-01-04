@@ -29,13 +29,25 @@ const getAllOfferedCourses = catchAsync(async (req: Request, res: Response) => {
 const getSingleOfferedCourses = catchAsync(
   async (req: Request, res: Response) => {
     const { id } = req.params;
-    //   const result =
-    //   sendResponse(res, {
-    //     statusCode: httpStatus.OK,
-    //     success: true,
-    //     message: 'OfferedCourse fetched successfully',
-    //     data: result,
-    //   });
+    const offeredCourse =
+      await OfferedCourseServices.getSingleOfferedCourseFromDB(id);
+
+    if (!offeredCourse) {
+      return sendResponse(res, {
+        statusCode: httpStatus.NOT_FOUND,
+        success: false,
+        message: 'Offered course not found',
+        data: null,
+      });
+    }
+
+    // Send success response
+    return sendResponse(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Offered course fetched successfully',
+      data: offeredCourse,
+    });
   },
 );
 
