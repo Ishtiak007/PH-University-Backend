@@ -11,4 +11,4 @@ router.post(
   AuthControllers.loginUser,
 );
 
-export const AcademicSemesterRoutes = router;
+export const AuthRoutes = router;
