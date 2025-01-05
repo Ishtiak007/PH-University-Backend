@@ -25,7 +25,6 @@ const auth = () => {
             'Your are not authorized',
           );
         }
-
         req.user = decoded as JwtPayload;
       },
     );
