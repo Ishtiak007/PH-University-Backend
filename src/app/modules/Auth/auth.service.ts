@@ -4,6 +4,7 @@ import { TLoginUser } from './auth.interface';
 import httpStatus from 'http-status';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import config from '../../config';
 
 const loginUser = async (payload: TLoginUser) => {
   //checking if the user is exists
@@ -37,9 +38,14 @@ const loginUser = async (payload: TLoginUser) => {
     userId: user,
     role: user.role,
   };
-  const accessToken = jwt.sign(jwtPayload, 'secret', { expiresIn: 60 * 60 });
+  const accessToken = jwt.sign(jwtPayload, config.jwt_access_secret as string, {
+    expiresIn: '10d',
+  });
 
-  return {};
+  return {
+    accessToken,
+    needsPasswordChange: user?.needsPasswordChange,
+  };
 };
 
 export const AuthServices = {
