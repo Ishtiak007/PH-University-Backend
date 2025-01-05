@@ -3,6 +3,7 @@ import { User } from '../user/user.model';
 import { TLoginUser } from './auth.interface';
 import httpStatus from 'http-status';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 const loginUser = async (payload: TLoginUser) => {
   //checking if the user is exists
@@ -30,6 +31,13 @@ const loginUser = async (payload: TLoginUser) => {
   if (!(await User.isPasswordMatched(payload?.password, user?.password)))
     //Access granted : send accesstoken, refressToken
     throw new AppError(httpStatus.FORBIDDEN, 'Password do not matched!');
+
+  // create token and sent to the client
+  const jwtPayload = {
+    userId: user,
+    role: user.role,
+  };
+  const accessToken = jwt.sign(jwtPayload, 'secret', { expiresIn: 60 * 60 });
 
   return {};
 };
