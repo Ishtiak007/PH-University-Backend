@@ -55,7 +55,7 @@ const changePassword = async (
     newPassword: string;
   },
 ) => {
-  const user = await User.isUserExistsByCustomId(userData.id);
+  const user = await User.isUserExistsByCustomId(userData.userId);
 
   if (!user) {
     throw new AppError(httpStatus.NOT_FOUND, 'This user is not found');
