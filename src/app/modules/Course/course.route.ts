@@ -21,6 +21,7 @@ router.get(
 
 router.patch(
   '/:id',
+  auth('admin'),
   validateRequest(CourseValidations.updateCourseValidationSchema),
   CourseControllers.updateCourse,
 );
