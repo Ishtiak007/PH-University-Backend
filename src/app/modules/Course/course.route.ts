@@ -13,7 +13,11 @@ router.post(
   CourseControllers.createCourse,
 );
 
-router.get('/:id', CourseControllers.getSingleCourse);
+router.get(
+  '/:id',
+  auth('admin', 'faculty', 'student'),
+  CourseControllers.getSingleCourse,
+);
 
 router.patch(
   '/:id',
