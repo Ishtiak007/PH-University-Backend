@@ -5,6 +5,7 @@ import httpStatus from 'http-status';
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import config from '../../config';
 import bcrypt from 'bcrypt';
+import { createToken } from './auth.utils';
 
 const loginUser = async (payload: TLoginUser) => {
   //checking if the user is exists
@@ -38,16 +39,10 @@ const loginUser = async (payload: TLoginUser) => {
     userId: user.id,
     role: user.role,
   };
-  const accessToken = jwt.sign(jwtPayload, config.jwt_access_secret as string, {
-    expiresIn: '10d',
-  });
-
-  const refreshToken = jwt.sign(
+  const accessToken = createToken(
     jwtPayload,
     config.jwt_access_secret as string,
-    {
-      expiresIn: '10d',
-    },
+    config.jwt_access_expires_in as string,
   );
 
   return {
