@@ -194,9 +194,15 @@ const forgetPassword = async (userId: string) => {
   sendEmail(user.email, resetUILink);
 };
 
+const resetPassword = (
+  payload: { id: string; newPassword: string },
+  token,
+) => {};
+
 export const AuthServices = {
   loginUser,
   changePassword,
   refreshToken,
   forgetPassword,
+  resetPassword,
 };
