@@ -181,13 +181,24 @@ const createAdminIntoDB = async (password: string, payload: TAdmin) => {
   }
 };
 
-const getMe = (token: string) => {
+const getMe = async (token: string) => {
   const decoded = verifyToken(token, config.jwt_access_secret as string);
 
   const { userId, role } = decoded;
-  console.log(userId, role);
+
+  let result = null;
+  if (role === 'student') {
+    result = await Student.findOne({ id: userId });
+  }
+  if (role === 'admin') {
+    result = await Admin.findOne({ id: userId });
+  }
+  if (role === 'faculty') {
+    result = await Faculty.findOne({ id: userId });
+  }
+
   // const result = await;
-  return {};
+  return result;
 };
 
 export const UserServices = {
