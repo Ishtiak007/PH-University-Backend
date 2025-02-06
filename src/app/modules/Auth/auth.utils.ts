@@ -1,5 +1,4 @@
 import jwt, { JwtPayload } from 'jsonwebtoken';
-import config from '../../config';
 
 export const createToken = (
   jwtPayload: { userId: string; role: string },
