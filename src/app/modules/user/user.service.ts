@@ -18,6 +18,7 @@ import {
 } from './user.utils';
 import { TAdmin } from '../admin/admin.interface';
 import { Admin } from '../admin/admin.model';
+import { verifyToken } from '../Auth/auth.utils';
 
 const createStudentIntoDB = async (password: string, payload: TStudent) => {
   // create a user object
@@ -180,9 +181,13 @@ const createAdminIntoDB = async (password: string, payload: TAdmin) => {
   }
 };
 
-const getMe = (id: string, role: string) => {
-  const result = await;
-  return result;
+const getMe = (token: string) => {
+  const decoded = verifyToken(token, config.jwt_access_secret as string);
+
+  const { userId, role } = decoded;
+  console.log(userId, role);
+  // const result = await;
+  return {};
 };
 
 export const UserServices = {
