@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { UserStatus } from './user.constant';
 
 const userValidationSchema = z.object({
   pasword: z
