@@ -30,6 +30,13 @@ router.post(
   UserControllers.createAdmin,
 );
 
+router.post(
+  '/change-status/:id',
+  auth('admin'),
+  validateRequest(UserValidation.changeStatusValidationSchema),
+  UserControllers.changeStatus,
+);
+
 router.get('/me', auth('student', 'faculty', 'admin'), UserControllers.getMe);
 
 export const UserRoutes = router;
