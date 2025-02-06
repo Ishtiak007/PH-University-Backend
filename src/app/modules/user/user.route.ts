@@ -6,6 +6,7 @@ import { UserControllers } from './user.controller';
 import { createAdminValidationSchema } from '../admin/admin.validation';
 import auth from '../../middlewares/auth';
 import { USER_ROLE } from './user.constant';
+import { UserValidation } from './user.validation';
 
 const router = express.Router();
 
