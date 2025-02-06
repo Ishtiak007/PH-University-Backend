@@ -2,13 +2,18 @@ import express from 'express';
 import { studentControllers } from './student.controller';
 import validateRequest from '../../middlewares/validateRequest';
 import { updateStudentValidationSchema } from './student.validation';
+import auth from '../../middlewares/auth';
 const router = express.Router();
 
 // will call contorller function
 // router.post('/create-student', studentControllers.createStudent);
 
 // get a single student from DB
-router.get('/:id', studentControllers.getSingleStudent);
+router.get(
+  '/:id',
+  auth('student', 'admin', 'faculty'),
+  studentControllers.getSingleStudent,
+);
 
 // update a student from DB
 router.patch(
