@@ -18,19 +18,18 @@ import {
 } from './user.utils';
 import { TAdmin } from '../admin/admin.interface';
 import { Admin } from '../admin/admin.model';
+import { sendImageToCloudinary } from '../../utils/sendImageToCloudinary';
 
-const createStudentIntoDB = async (password: string, payload: TStudent) => {
-  // create a user object
+const createStudentIntoDB = async (
+  file: any,
+  password: string,
+  payload: TStudent,
+) => {
   const userData: Partial<TUser> = {};
-
-  //if password is not given , use deafult password
   userData.password = password || (config.default_password as string);
 
-  //set student role
   userData.role = 'student';
   userData.email = payload.email;
-
-  // find academic semester info
   const admissionSemester = await AcademicSemester.findById(
     payload.admissionSemester,
   );
@@ -43,21 +42,20 @@ const createStudentIntoDB = async (password: string, payload: TStudent) => {
 
   try {
     session.startTransaction();
-    //set  generated id
     userData.id = await generateStudentId(admissionSemester);
 
-    // create a user (transaction-1)
+    const imageName = `${userData.id}${payload?.name?.firstName}`;
+    const path = file?.path;
+    const { secure_url } = await sendImageToCloudinary(imageName, path);
     const newUser = await User.create([userData], { session }); // array
 
-    //create a student
     if (!newUser.length) {
       throw new AppError(httpStatus.BAD_REQUEST, 'Failed to create user');
     }
-    // set id , _id as user
+
     payload.id = newUser[0].id;
     payload.user = newUser[0]._id; //reference _id
-
-    // create a student (transaction-2)
+    payload.profileImg = secure_url;
 
     const newStudent = await Student.create([payload], { session });
 
