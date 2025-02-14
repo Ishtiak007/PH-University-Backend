@@ -159,7 +159,6 @@ const updateEnrolledCourseMarksIntoDB = async (
       'Semester registration not found !',
     );
   }
-
   const isOfferedCourseExists = await OfferedCourse.findById(offeredCourse);
 
   if (!isOfferedCourseExists) {
