@@ -12,19 +12,24 @@ const router = express.Router();
 // get a single student from DB
 router.get(
   '/:id',
-  auth('student', 'admin', 'faculty'),
+  auth(USER_ROLE.superAdmin, USER_ROLE.admin, USER_ROLE.faculty),
   studentControllers.getSingleStudent,
 );
 
 // update a student from DB
 router.patch(
   '/:id',
+  auth(USER_ROLE.superAdmin, USER_ROLE.admin),
   validateRequest(updateStudentValidationSchema),
   studentControllers.updateStudent,
 );
 
 // delete a student from DB
-router.delete('/:id', studentControllers.deleteStudent);
+router.delete(
+  '/:id',
+  auth(USER_ROLE.superAdmin, USER_ROLE.admin),
+  studentControllers.deleteStudent,
+);
 
 // get all student from DB
 router.get(
