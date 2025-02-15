@@ -3,12 +3,15 @@ import mongoose from 'mongoose';
 import app from './app';
 import config from './app/config';
 import { Server } from 'http';
+import seedSupperAdmin from './app/DB';
 
 let server: Server;
 
 async function main() {
   try {
     await mongoose.connect(config.databaseURL as string);
+
+    seedSupperAdmin();
 
     server = app.listen(config.port, () => {
       console.log(`app is listening on port ${config.port}`);
