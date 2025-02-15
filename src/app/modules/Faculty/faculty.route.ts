@@ -20,7 +20,11 @@ router.patch(
   FacultyControllers.updateFaculty,
 );
 
-router.delete('/:id', FacultyControllers.deleteFaculty);
+router.delete(
+  '/:id',
+  auth(USER_ROLE.superAdmin, USER_ROLE.admin),
+  FacultyControllers.deleteFaculty,
+);
 
 router.get(
   '/',
