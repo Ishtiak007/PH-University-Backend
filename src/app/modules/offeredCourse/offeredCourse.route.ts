@@ -33,6 +33,7 @@ router.post(
 
 router.patch(
   '/:id',
+  auth(USER_ROLE.superAdmin, USER_ROLE.admin),
   validateRequest(OfferedCourseValidations.updateOfferedCourseValidationSchema),
   OfferedCourseControllers.updateOfferedCourse,
 );
