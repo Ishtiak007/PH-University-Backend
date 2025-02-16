@@ -25,6 +25,14 @@ const getMyEnrolledCourses = catchAsync(async (req, res) => {
     studentId,
     req.query,
   );
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Enrolled courses are retrivied succesfully',
+    meta: result.meta,
+    data: result.result,
+  });
 });
 
 const updateEnrolledCourseMarks = catchAsync(async (req, res) => {
