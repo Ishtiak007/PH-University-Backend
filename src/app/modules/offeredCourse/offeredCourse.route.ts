@@ -38,6 +38,10 @@ router.patch(
   OfferedCourseControllers.updateOfferedCourse,
 );
 
-router.delete('/:id', OfferedCourseControllers.deleteOfferedCourseFromDB);
+router.delete(
+  '/:id',
+  auth(USER_ROLE.superAdmin, USER_ROLE.admin),
+  OfferedCourseControllers.deleteOfferedCourseFromDB,
+);
 
 export const offeredCourseRoutes = router;
