@@ -39,7 +39,7 @@ router.put(
 
 router.delete(
   '/:courseId/remove-faculties',
-  auth('admin'),
+  auth(USER_ROLE.superAdmin, USER_ROLE.admin),
   validateRequest(CourseValidations.facultiesWithCourseValidationSchema),
   CourseControllers.removeFacultiesFromCourse,
 );
