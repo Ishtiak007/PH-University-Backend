@@ -18,6 +18,15 @@ const createEnrolledCourse = catchAsync(async (req, res) => {
   });
 });
 
+const getMyEnrolledCourses = catchAsync(async (req, res) => {
+  const studentId = req.user.userId;
+
+  const result = await EnrolledCourseServices.getMyEnrolledCoursesFromDB(
+    studentId,
+    req.query,
+  );
+});
+
 const updateEnrolledCourseMarks = catchAsync(async (req, res) => {
   const facultyId = req.user.userId;
   const result = await EnrolledCourseServices.updateEnrolledCourseMarksIntoDB(
