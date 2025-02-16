@@ -53,4 +53,5 @@ const updateEnrolledCourseMarks = catchAsync(async (req, res) => {
 export const EnrolledCourseControllers = {
   createEnrolledCourse,
   updateEnrolledCourseMarks,
+  getMyEnrolledCourses,
 };
