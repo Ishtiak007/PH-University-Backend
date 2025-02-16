@@ -33,6 +33,7 @@ router.patch(
 
 router.put(
   '/:courseId/assign-faculties',
+  auth(USER_ROLE.superAdmin, USER_ROLE.admin),
   validateRequest(CourseValidations.facultiesWithCourseValidationSchema),
   CourseControllers.assignFacultiesWithCourse,
 );
