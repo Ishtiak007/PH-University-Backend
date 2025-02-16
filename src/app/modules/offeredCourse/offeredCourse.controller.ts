@@ -4,7 +4,6 @@ import sendResponse from '../../utils/sendResponse';
 import httpStatus from 'http-status';
 import { OfferedCourseServices } from './offeredCourse.service';
 
-// create offered course
 const createOfferedCourse = catchAsync(async (req: Request, res: Response) => {
   const result = await OfferedCourseServices.createOfferedCourseIntoDB(
     req.body,
@@ -12,25 +11,25 @@ const createOfferedCourse = catchAsync(async (req: Request, res: Response) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Offered course is created successfully!',
+    message: 'Offered Course is created successfully !',
     data: result,
   });
 });
 
-// get all offered course
 const getAllOfferedCourses = catchAsync(async (req: Request, res: Response) => {
-  const offeredCourses =
-    await OfferedCourseServices.getAllOfferedCoursesFromDB();
+  const result = await OfferedCourseServices.getAllOfferedCoursesFromDB(
+    req.query,
+  );
 
-  return sendResponse(res, {
+  sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Offered courses retrieved successfully!',
-    data: offeredCourses,
+    message: 'OfferedCourses retrieved successfully !',
+    meta: result.meta,
+    data: result.result,
   });
 });
 
-// getMyOfferedCourses
 const getMyOfferedCourses = catchAsync(async (req: Request, res: Response) => {
   const userId = req.user.userId;
   const result = await OfferedCourseServices.getMyOfferedCoursesFromDB(
@@ -47,32 +46,20 @@ const getMyOfferedCourses = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-// get single offerde courses
 const getSingleOfferedCourse = catchAsync(
   async (req: Request, res: Response) => {
     const { id } = req.params;
-    const offeredCourse =
-      await OfferedCourseServices.getSingleOfferedCourseFromDB(id);
+    const result = await OfferedCourseServices.getSingleOfferedCourseFromDB(id);
 
-    if (!offeredCourse) {
-      return sendResponse(res, {
-        statusCode: httpStatus.NOT_FOUND,
-        success: false,
-        message: 'Offered course not found',
-        data: null,
-      });
-    }
-
-    return sendResponse(res, {
+    sendResponse(res, {
       statusCode: httpStatus.OK,
       success: true,
-      message: 'Offered course fetched successfully',
-      data: offeredCourse,
+      message: 'OfferedCourse fetched successfully',
+      data: result,
     });
   },
 );
 
-// update offeded course
 const updateOfferedCourse = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
 
@@ -88,7 +75,6 @@ const updateOfferedCourse = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-// delete offered course from db
 const deleteOfferedCourseFromDB = catchAsync(
   async (req: Request, res: Response) => {
     const { id } = req.params;
