@@ -36,6 +36,12 @@ router.patch(
   SemesterRegistrationController.updateSemesterRegistration,
 );
 
+router.delete(
+  '/:id',
+  auth(USER_ROLE.superAdmin, USER_ROLE.admin),
+  SemesterRegistrationController.deleteSemesterRegistration,
+);
+
 router.get(
   '/',
   auth(
