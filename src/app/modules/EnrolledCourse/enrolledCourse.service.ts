@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import mongoose from 'mongoose';
 import AppError from '../../errors/AppError';
 import { Course } from '../Course/course.model';
