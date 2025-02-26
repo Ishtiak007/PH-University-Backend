@@ -1,19 +1,24 @@
 import express from 'express';
-import { studentControllers } from './student.controller';
+import auth from '../../middlewares/auth';
 import validateRequest from '../../middlewares/validateRequest';
 import { updateStudentValidationSchema } from './student.validation';
-import auth from '../../middlewares/auth';
 import { USER_ROLE } from '../user/user.constant';
+import { studentControllers } from './student.controller';
+
 const router = express.Router();
 
-// get a single student from DB
+router.get(
+  '/',
+  auth(USER_ROLE.superAdmin, USER_ROLE.admin),
+  studentControllers.getAllStudents,
+);
+
 router.get(
   '/:id',
   auth(USER_ROLE.superAdmin, USER_ROLE.admin, USER_ROLE.faculty),
   studentControllers.getSingleStudent,
 );
 
-// update a student from DB
 router.patch(
   '/:id',
   auth(USER_ROLE.superAdmin, USER_ROLE.admin),
@@ -21,18 +26,10 @@ router.patch(
   studentControllers.updateStudent,
 );
 
-// delete a student from DB
 router.delete(
   '/:id',
   auth(USER_ROLE.superAdmin, USER_ROLE.admin),
   studentControllers.deleteStudent,
-);
-
-// get all student from DB
-router.get(
-  '/',
-  auth(USER_ROLE.superAdmin, USER_ROLE.admin),
-  studentControllers.getAllStudents,
 );
 
 export const StudentRoutes = router;
