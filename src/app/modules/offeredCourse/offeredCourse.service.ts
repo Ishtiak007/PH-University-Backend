@@ -1,14 +1,14 @@
+import httpStatus from 'http-status';
+import QueryBuilder from '../../builder/QueryBuilder';
 import AppError from '../../errors/AppError';
-import { AcademicDepartment } from '../academicDepartment/academicDepartment.model';
-import { AcademicFaculty } from '../academicFaculty/academicFaculty.model';
 import { Course } from '../Course/course.model';
 import { Faculty } from '../Faculty/faculty.model';
-import { SemesterRegistration } from '../semesterRegistration/semesterRegistration.model';
 import { TOfferedCourse } from './offeredCourse.interface';
+import { SemesterRegistration } from '../semesterRegistration/semesterRegistration.model';
+import { AcademicFaculty } from '../academicFaculty/academicFaculty.model';
+import { AcademicDepartment } from '../academicDepartment/academicDepartment.model';
 import { OfferedCourse } from './offeredCourse.model';
-import httpStatus from 'http-status';
 import { hasTimeConflict } from './offeredCourse.utils';
-import QueryBuilder from '../../builder/QueryBuilder';
 import { Student } from '../student/student.model';
 
 const createOfferedCourseIntoDB = async (payload: TOfferedCourse) => {
@@ -24,20 +24,6 @@ const createOfferedCourseIntoDB = async (payload: TOfferedCourse) => {
     endTime,
   } = payload;
 
-  /**
-   * Step 1: check if the semester registration id is exists!
-   * Step 2: check if the academic faculty id is exists!
-   * Step 3: check if the academic department id is exists!
-   * Step 4: check if the course id is exists!
-   * Step 5: check if the faculty id is exists!
-   * Step 6: check if the department is belong to the  faculty
-   * Step 7: check if the same offered course same section in same registered semester exists
-   * Step 8: get the schedules of the faculties
-   * Step 9: check if the faculty is available at that time. If not then throw error
-   * Step 10: create the offered course
-   */
-
-  //check if the semester registration id is exists!
   const isSemesterRegistrationExits =
     await SemesterRegistration.findById(semesterRegistration);
 
@@ -438,8 +424,8 @@ const deleteOfferedCourseFromDB = async (id: string) => {
 export const OfferedCourseServices = {
   createOfferedCourseIntoDB,
   getAllOfferedCoursesFromDB,
-  getSingleOfferedCourseFromDB,
-  updateOfferedCourseIntoDB,
-  deleteOfferedCourseFromDB,
   getMyOfferedCoursesFromDB,
+  getSingleOfferedCourseFromDB,
+  deleteOfferedCourseFromDB,
+  updateOfferedCourseIntoDB,
 };

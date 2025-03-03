@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
+import httpStatus from 'http-status';
 import catchAsync from '../../utils/catchAsync';
 import sendResponse from '../../utils/sendResponse';
-import httpStatus from 'http-status';
 import { OfferedCourseServices } from './offeredCourse.service';
 
 const createOfferedCourse = catchAsync(async (req: Request, res: Response) => {
@@ -46,7 +46,7 @@ const getMyOfferedCourses = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-const getSingleOfferedCourse = catchAsync(
+const getSingleOfferedCourses = catchAsync(
   async (req: Request, res: Response) => {
     const { id } = req.params;
     const result = await OfferedCourseServices.getSingleOfferedCourseFromDB(id);
@@ -91,8 +91,8 @@ const deleteOfferedCourseFromDB = catchAsync(
 export const OfferedCourseControllers = {
   createOfferedCourse,
   getAllOfferedCourses,
-  getSingleOfferedCourse,
+  getMyOfferedCourses,
+  getSingleOfferedCourses,
   updateOfferedCourse,
   deleteOfferedCourseFromDB,
-  getMyOfferedCourses,
 };
