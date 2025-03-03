@@ -40,7 +40,7 @@ const getMyOfferedCourses = catchAsync(async (req: Request, res: Response) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'OfferedCourses retrieved successfully !',
+    message: 'OfferedCourses retrieved successfullyyyyyy !',
     meta: result.meta,
     data: result.result,
   });
